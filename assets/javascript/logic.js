@@ -1,12 +1,3 @@
-// Steps to complete:
-
-// 1. Create Firebase link
-// 2. Create initial train data in database
-// 3. Create button for adding new trains - then update the html + update the database
-// 4. Create a way to retrieve trains from the trainlist.
-// 5. Create a way to calculate the time way. Using difference between start and current time.
-//    Then take the difference and modulus by frequency. (This step can be completed in either 3 or 4)
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAS9FVjRY2fvCz9f-HsQff2Tj9frKZvhzc",
@@ -16,11 +7,11 @@ var config = {
   };
   
   firebase.initializeApp(config);
-  
+
+//   Create a variable to hold our database
   var trainData = firebase.database();
   
-  // 2. Populate Firebase Database with initial data (in this case, I did this via Firebase GUI)
-  // 3. Button for adding trains
+// On click function to add train submission
   $("#add-train-btn").on("click", function(event) {
     // Prevent the default form submit behavior
     event.preventDefault();
@@ -103,7 +94,7 @@ var config = {
     console.log("tMinutes:", tMinutes);
     console.log("tArrival:", tArrival);
   
-    // Add each train's data into the table
+    // Add the data the user submitted to the schedule
     $("#train-table > tbody").append(
       $("<tr>").append(
         $("<td>").text(tName),
@@ -114,36 +105,4 @@ var config = {
       )
     );
   });
-  
-  // Assume the following situations.
-  
-  // (TEST 1)
-  // First Train of the Day is 3:00 AM
-  // Assume Train comes every 3 minutes.
-  // Assume the current time is 3:16 AM....
-  // What time would the next train be...? ( Let's use our brains first)
-  // It would be 3:18 -- 2 minutes away
-  
-  // (TEST 2)
-  // First Train of the Day is 3:00 AM
-  // Assume Train comes every 7 minutes.
-  // Assume the current time is 3:16 AM....
-  // What time would the next train be...? (Let's use our brains first)
-  // It would be 3:21 -- 5 minutes away
-  
-  // ==========================================================
-  
-  // Solved Mathematically
-  // Test case 1:
-  // 16 - 00 = 16
-  // 16 % 3 = 1 (Modulus is the remainder)
-  // 3 - 1 = 2 minutes away
-  // 2 + 3:16 = 3:18
-  
-  // Solved Mathematically
-  // Test case 2:
-  // 16 - 00 = 16
-  // 16 % 7 = 2 (Modulus is the remainder)
-  // 7 - 2 = 5 minutes away
-  // 5 + 3:16 = 3:21
   
